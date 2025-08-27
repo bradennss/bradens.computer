@@ -1,17 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { memo, PropsWithChildren } from "react";
 import { cn } from "~/utils";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const abcDiatype = localFont({
+  src: [
+    {
+      path: "./fonts/abc-diatype-regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/abc-diatype-italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/abc-diatype-bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/abc-diatype-bold-italic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-abc-diatype",
 });
 
 export const metadata: Metadata = {
@@ -23,9 +39,8 @@ const RootLayout = memo<PropsWithChildren>(({ children }) => {
     <html lang="en">
       <body
         className={cn(
-          geistSans.variable,
-          geistMono.variable,
-          "antialiased bg-background text-foreground"
+          abcDiatype.variable,
+          "antialiased bg-background text-foreground font-sans"
         )}
       >
         {children}

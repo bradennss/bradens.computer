@@ -94,13 +94,15 @@ export const FiletreeRoot = memo<{ filesystem: FilesystemItem[] }>(
     const openDirectories = useSnapshot(filesystemState).openDirectories;
 
     const onValueChange = useCallback((value: string[]) => {
-      filesystemState.openDirectories = value;
+      filesystemState.openDirectories = Object.fromEntries(
+        value.map((path) => [path, true])
+      );
     }, []);
 
     return (
       <Accordion
         type="multiple"
-        value={isClient ? (openDirectories as string[]) : []}
+        value={isClient ? Object.keys(openDirectories) : []}
         onValueChange={onValueChange}
       >
         {items.map((item) => (

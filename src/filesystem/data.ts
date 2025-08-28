@@ -30,15 +30,5 @@ export const filesystem: FilesystemItem[] = [
   { type: "directory", path: "/fun/2021" },
   { type: "directory", path: "/fun/2019" },
   { type: "directory", path: "/fun/2016" },
-  { type: "directory", path: "/find me" },
-  {
-    type: "external-link",
-    path: "/find me/instagram",
-    href: "https://www.instagram.com/bradennss",
-  },
-  {
-    type: "external-link",
-    path: "/find me/github",
-    href: "https://github.com/bradennss",
-  },
+  { type: "file", path: "/find me.md", content: "" },
 ];

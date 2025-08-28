@@ -6,14 +6,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
-import { ExternalLinkIcon, FileIcon, MinusIcon, PlusIcon } from "lucide-react";
-import Link from "next/link";
+import {
+  Dialog,
+  DialogContent,
+  DialogPortal,
+  DialogTitle,
+} from "@radix-ui/react-dialog";
+import { FileIcon, MinusIcon, PlusIcon, XIcon } from "lucide-react";
 import { memo, useCallback } from "react";
 import { useSnapshot } from "valtio";
 import {
-  FilesystemDirectoryItem,
-  FilesystemExternalLinkItem,
-  FilesystemFileItem,
+  FilesystemDirectory,
+  FilesystemFile,
   FilesystemItem,
 } from "~/filesystem/types";
 import { lastPathSegment, listItemsAtPath } from "~/filesystem/utils";
@@ -35,15 +39,13 @@ const FiletreeItemComponent = memo<{
       return <FiletreeFolderComponent filesystem={filesystem} item={item} />;
     case "file":
       return <FiletreeFileComponent item={item} />;
-    case "external-link":
-      return <FiletreeExternalLinkComponent item={item} />;
   }
 });
 FiletreeItemComponent.displayName = "FiletreeItemComponent";
 
 const FiletreeFolderComponent = memo<{
   filesystem: FilesystemItem[];
-  item: FilesystemDirectoryItem;
+  item: FilesystemDirectory;
 }>(({ filesystem, item }) => {
   const items = listItemsAtPath(filesystem, item.path);
 
@@ -68,23 +70,7 @@ const FiletreeFolderComponent = memo<{
 });
 FiletreeFolderComponent.displayName = "FiletreeFolderComponent";
 
-const FiletreeExternalLinkComponent = memo<{
-  item: FilesystemExternalLinkItem;
-}>(({ item }) => {
-  return (
-    <Link
-      href={item.href}
-      target={`external_link_${item.path}`}
-      className="flex items-center gap-1"
-    >
-      <ExternalLinkIcon className="size-4" />
-      {lastPathSegment(item.path)}
-    </Link>
-  );
-});
-FiletreeExternalLinkComponent.displayName = "FiletreeExternalLinkComponent";
-
-const FiletreeFileComponent = memo<{ item: FilesystemFileItem }>(({ item }) => {
+const FiletreeFileComponent = memo<{ item: FilesystemFile }>(({ item }) => {
   const isClient = useIsClient();
   const isOpen = useIsFileOpen(item.path);
 
@@ -142,3 +128,43 @@ export const FiletreeRoot = memo<{ filesystem: FilesystemItem[] }>(
   }
 );
 FiletreeRoot.displayName = "FiletreeRoot";
+
+const FileWindowErrorContent = memo<{ message: string }>(({ message }) => {
+  return (
+    <div className="p-2">
+      <p>{message}</p>
+    </div>
+  );
+});
+FileWindowErrorContent.displayName = "FileWindowErrorContent";
+
+export const OpenFileWindow = memo(() => {
+  const isClient = useIsClient();
+  const openFilePath = useSnapshot(filesystemState).openFile;
+
+  const handleClose = useCallback(() => closeFile(), []);
+
+  if (!isClient || !openFilePath) {
+    return null;
+  }
+
+  return (
+    <Dialog open modal={false}>
+      <DialogPortal>
+        <DialogContent className="outline-none fixed top-0 right-0 bottom-0 w-screen max-w-screen-lg border-l border-window-border h-[100svh] bg-window-background flex flex-col-reverse sm:flex-col">
+          <div className="border-t sm:border-b sm:border-t-0 border-window-border bg-window-title-background flex gap-2 pl-2 text-window-title-foreground items-center">
+            <FileIcon className="size-4" />
+            <DialogTitle className="truncate">{openFilePath}</DialogTitle>
+            <button className="p-1 ml-auto" onClick={handleClose}>
+              <XIcon className="size-4" />
+            </button>
+          </div>
+          <div className="flex-1 text-window-foreground">
+            <FileWindowErrorContent message="Unable to render content" />
+          </div>
+        </DialogContent>
+      </DialogPortal>
+    </Dialog>
+  );
+});
+OpenFileWindow.displayName = "OpenFileWindow";

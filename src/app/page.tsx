@@ -1,11 +1,12 @@
 import { memo } from "react";
-import { FiletreeRoot } from "./client";
+import { FiletreeRoot, OpenFileWindow } from "./client";
 import { filesystem } from "~/filesystem/data";
 
 const HomePage = memo(() => {
   return (
     <main className="p-4">
       <FiletreeRoot filesystem={filesystem} />
+      <OpenFileWindow />
     </main>
   );
 });

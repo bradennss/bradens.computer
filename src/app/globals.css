@@ -3,7 +3,12 @@
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #000000;
-  --color-tree-indent: #00000040;
+  --color-tree-indent: #ccc;
+  --color-window-background: #ffffff;
+  --color-window-foreground: #000000;
+  --color-window-border: #666;
+  --color-window-title-background: #e6e6e6;
+  --color-window-title-foreground: #333;
   --font-sans: var(--font-abc-diatype);
   --font-mono: "Courier New", Courier, monospace;
 }

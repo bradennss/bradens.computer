@@ -3,21 +3,13 @@ type BaseFilesystemItem = {
   type: unknown;
 };
 
-export type FilesystemDirectoryItem = BaseFilesystemItem & {
+export type FilesystemDirectory = BaseFilesystemItem & {
   type: "directory";
 };
 
-export type FilesystemFileItem = BaseFilesystemItem & {
+export type FilesystemFile = BaseFilesystemItem & {
   type: "file";
   content: string;
 };
 
-export type FilesystemExternalLinkItem = BaseFilesystemItem & {
-  type: "external-link";
-  href: string;
-};
-
-export type FilesystemItem =
-  | FilesystemDirectoryItem
-  | FilesystemFileItem
-  | FilesystemExternalLinkItem;
+export type FilesystemItem = FilesystemDirectory | FilesystemFile;

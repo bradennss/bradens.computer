@@ -1,11 +1,11 @@
 import { memo } from "react";
-import { TreeRoot } from "~/components/tree";
-import { tree } from "~/data";
+import { FiletreeRoot } from "~/components/filetree";
+import { filesystem } from "~/filesystem/data";
 
 const HomePage = memo(() => {
   return (
     <main className="p-4">
-      <TreeRoot items={tree} />
+      <FiletreeRoot filesystem={filesystem} />
     </main>
   );
 });

@@ -39,7 +39,7 @@ const TreeFolderComponent = memo<{ item: FolderTreeItem; parent?: TreeItem }>(
           <MinusIcon className="size-4 hidden" />
           {item.name}
         </AccordionTrigger>
-        <AccordionContent className="pl-5">
+        <AccordionContent className="pl-5 border-l border-foreground/25">
           {item.items.map((child) => (
             <TreeItemComponent key={child.name} item={child} parent={item} />
           ))}

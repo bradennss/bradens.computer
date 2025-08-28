@@ -133,7 +133,7 @@ FiletreeRoot.displayName = "FiletreeRoot";
 
 const FileWindowTextContent = memo<{ file: FilesystemTextFile }>(({ file }) => {
   const textQuery = useQuery({
-    queryKey: ["file", file.path],
+    queryKey: ["file", file.src],
     queryFn: () => fetch(file.src).then((res) => res.text()),
   });
 

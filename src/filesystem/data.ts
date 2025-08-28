@@ -48,6 +48,12 @@ export const filesystem: FilesystemItem[] = [
   },
   {
     type: "file",
+    path: "/1099/2024/mokk.md",
+    contentType: "text",
+    src: "/test.txt",
+  },
+  {
+    type: "file",
     path: "/1099/2024/awaken.md",
     contentType: "text",
     src: "/test.txt",

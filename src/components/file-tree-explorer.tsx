@@ -14,7 +14,6 @@ import {
   FilesystemItem,
   listDirectory,
 } from "~/data/filesystem";
-import { useIsClient } from "~/hooks/client";
 import { cn, lastPathSegment } from "~/utils";
 
 const FileTreeExplorerItem = memo<{
@@ -82,13 +81,11 @@ const FileTreeExplorerFile = memo<{
   isOpen?: boolean;
   onClick?: () => void;
 }>(({ item, isOpen, onClick }) => {
-  const isClient = useIsClient();
-
   return (
     <button
       className={cn(
         "flex items-center gap-1 select-none",
-        isClient && isOpen && "font-bold"
+        isOpen && "font-bold"
       )}
       onClick={onClick}
     >
@@ -114,7 +111,9 @@ export const FileTreeExplorer = memo<{
     const [internalExpandedDirectories, setInternalExpandedDirectories] =
       useState<string[]>([]);
     const expandedDirectories =
-      providedExpandedDirectories ?? internalExpandedDirectories;
+      providedExpandedDirectories === undefined
+        ? internalExpandedDirectories
+        : providedExpandedDirectories;
 
     const handleExpandedDirectoriesChange = useCallback(
       (value: string[]) => {
@@ -127,11 +126,12 @@ export const FileTreeExplorer = memo<{
     const [internalOpenFile, setInternalOpenFile] = useState<string | null>(
       null
     );
-    const openFile = providedOpenFile ?? internalOpenFile;
+    const openFile =
+      providedOpenFile === undefined ? internalOpenFile : providedOpenFile;
 
     const handleOpenFile = useCallback(
       (path: string) => {
-        if (internalOpenFile === path) {
+        if (openFile === path) {
           setInternalOpenFile(null);
           onOpenFileChange?.(null);
         } else {
@@ -139,7 +139,7 @@ export const FileTreeExplorer = memo<{
           onOpenFileChange?.(path);
         }
       },
-      [onOpenFileChange, internalOpenFile]
+      [onOpenFileChange, openFile]
     );
 
     const items = useMemo(() => listDirectory("/"), []);

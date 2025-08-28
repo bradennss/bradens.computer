@@ -7,9 +7,29 @@ export type FilesystemDirectory = BaseFilesystemItem & {
   type: "directory";
 };
 
-export type FilesystemFile = BaseFilesystemItem & {
+type BaseFilesystemFile = BaseFilesystemItem & {
   type: "file";
-  content: string;
+  contentType: unknown;
 };
+
+export type FilesystemTextFile = BaseFilesystemFile & {
+  contentType: "text";
+  src: string;
+};
+
+export type FilesystemImageFile = BaseFilesystemFile & {
+  contentType: "image";
+  src: string;
+};
+
+export type FilesystemComponentFile = BaseFilesystemFile & {
+  contentType: "component";
+  src: string;
+};
+
+export type FilesystemFile =
+  | FilesystemTextFile
+  | FilesystemImageFile
+  | FilesystemComponentFile;
 
 export type FilesystemItem = FilesystemDirectory | FilesystemFile;

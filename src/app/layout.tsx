@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { memo, PropsWithChildren } from "react";
 import { cn } from "~/utils";
+import QueryClientProvider from "~/providers/query-client";
 
 const abcDiatype = localFont({
   src: [
@@ -30,22 +31,36 @@ const abcDiatype = localFont({
   variable: "--font-abc-diatype",
 });
 
+const abcDiatypeMono = localFont({
+  src: [
+    {
+      path: "./fonts/abc-diatype-mono.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-abc-diatype-mono",
+});
+
 export const metadata: Metadata = {
   title: "bradens.computer",
 };
 
 const RootLayout = memo<PropsWithChildren>(({ children }) => {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          abcDiatype.variable,
-          "antialiased bg-background text-foreground font-sans"
-        )}
-      >
-        {children}
-      </body>
-    </html>
+    <QueryClientProvider>
+      <html lang="en">
+        <body
+          className={cn(
+            abcDiatype.variable,
+            abcDiatypeMono.variable,
+            "antialiased bg-background text-foreground font-sans"
+          )}
+        >
+          {children}
+        </body>
+      </html>
+    </QueryClientProvider>
   );
 });
 RootLayout.displayName = "RootLayout";

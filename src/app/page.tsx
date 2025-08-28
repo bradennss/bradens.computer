@@ -4,9 +4,9 @@ import { filesystem } from "~/filesystem/data";
 
 const HomePage = memo(() => {
   return (
-    <main className="p-4">
+    <main className="p-2">
       <FiletreeRoot filesystem={filesystem} />
-      <OpenFileWindow />
+      <OpenFileWindow filesystem={filesystem} />
     </main>
   );
 });

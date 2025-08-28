@@ -12,6 +12,7 @@ import {
   DialogPortal,
   DialogTitle,
 } from "@radix-ui/react-dialog";
+import { useQuery } from "@tanstack/react-query";
 import { FileIcon, MinusIcon, PlusIcon, XIcon } from "lucide-react";
 import { memo, useCallback } from "react";
 import { useSnapshot } from "valtio";
@@ -19,6 +20,7 @@ import {
   FilesystemDirectory,
   FilesystemFile,
   FilesystemItem,
+  FilesystemTextFile,
 } from "~/filesystem/types";
 import { lastPathSegment, listItemsAtPath } from "~/filesystem/utils";
 import { useIsClient } from "~/hooks/client";
@@ -129,6 +131,28 @@ export const FiletreeRoot = memo<{ filesystem: FilesystemItem[] }>(
 );
 FiletreeRoot.displayName = "FiletreeRoot";
 
+const FileWindowTextContent = memo<{ file: FilesystemTextFile }>(({ file }) => {
+  const textQuery = useQuery({
+    queryKey: ["file", file.path],
+    queryFn: () => fetch(file.src).then((res) => res.text()),
+  });
+
+  if (textQuery.error) {
+    return (
+      <FileWindowErrorContent
+        message={`Unable to fetch content from ${file.src}`}
+      />
+    );
+  }
+
+  return (
+    <div className="p-2 font-mono">
+      <p>{textQuery.data}</p>
+    </div>
+  );
+});
+FileWindowTextContent.displayName = "FileWindowTextContent";
+
 const FileWindowErrorContent = memo<{ message: string }>(({ message }) => {
   return (
     <div className="p-2">
@@ -138,33 +162,54 @@ const FileWindowErrorContent = memo<{ message: string }>(({ message }) => {
 });
 FileWindowErrorContent.displayName = "FileWindowErrorContent";
 
-export const OpenFileWindow = memo(() => {
-  const isClient = useIsClient();
-  const openFilePath = useSnapshot(filesystemState).openFile;
-
-  const handleClose = useCallback(() => closeFile(), []);
-
-  if (!isClient || !openFilePath) {
-    return null;
+export const FileWindowContent = memo<{ file: FilesystemFile }>(({ file }) => {
+  switch (file.contentType) {
+    case "text":
+      return <FileWindowTextContent file={file} />;
   }
 
   return (
-    <Dialog open modal={false}>
-      <DialogPortal>
-        <DialogContent className="outline-none fixed top-0 right-0 bottom-0 w-screen max-w-screen-lg border-l border-window-border h-[100svh] bg-window-background flex flex-col-reverse sm:flex-col">
-          <div className="border-t sm:border-b sm:border-t-0 border-window-border bg-window-title-background flex gap-2 pl-2 text-window-title-foreground items-center">
-            <FileIcon className="size-4" />
-            <DialogTitle className="truncate">{openFilePath}</DialogTitle>
-            <button className="p-1 ml-auto" onClick={handleClose}>
-              <XIcon className="size-4" />
-            </button>
-          </div>
-          <div className="flex-1 text-window-foreground">
-            <FileWindowErrorContent message="Unable to render content" />
-          </div>
-        </DialogContent>
-      </DialogPortal>
-    </Dialog>
+    <FileWindowErrorContent
+      message={`Unsupported file type: ${file.contentType}`}
+    />
   );
 });
+FileWindowContent.displayName = "FileWindowContent";
+
+export const OpenFileWindow = memo<{ filesystem: FilesystemItem[] }>(
+  ({ filesystem }) => {
+    const isClient = useIsClient();
+    const openFilePath = useSnapshot(filesystemState).openFile;
+    const openFile = filesystem.find((item) => item.path === openFilePath);
+
+    const handleClose = useCallback(() => closeFile(), []);
+
+    if (!isClient || !openFilePath) {
+      return null;
+    }
+
+    return (
+      <Dialog open modal={false}>
+        <DialogPortal>
+          <DialogContent className="outline-none fixed top-0 right-0 bottom-0 w-screen max-w-screen-lg border-l border-window-border h-[100svh] bg-window-background flex flex-col-reverse sm:flex-col">
+            <div className="border-t sm:border-b sm:border-t-0 border-window-border bg-window-title-background flex gap-2 pl-2 text-window-title-foreground items-center">
+              <FileIcon className="size-4" />
+              <DialogTitle className="truncate">{openFilePath}</DialogTitle>
+              <button className="p-1 ml-auto" onClick={handleClose}>
+                <XIcon className="size-4" />
+              </button>
+            </div>
+            <div className="flex-1 text-window-foreground overflow-y-auto">
+              {openFile?.type === "file" ? (
+                <FileWindowContent file={openFile} />
+              ) : (
+                <FileWindowErrorContent message="Unable to open file" />
+              )}
+            </div>
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
+    );
+  }
+);
 OpenFileWindow.displayName = "OpenFileWindow";

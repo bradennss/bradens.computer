@@ -9,8 +9,8 @@
   --color-window-border: #666;
   --color-window-title-background: #e6e6e6;
   --color-window-title-foreground: #333;
-  --font-sans: var(--font-abc-diatype);
-  --font-mono: "Courier New", Courier, monospace;
+  --font-sans: var(--font-abc-diatype), sans-serif;
+  --font-mono: var(--font-abc-diatype-mono), monospace;
 }
 
 a,

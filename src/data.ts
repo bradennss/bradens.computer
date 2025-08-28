@@ -27,12 +27,23 @@ export const tree: TreeItem[] = [
       {
         name: "2025",
         type: "folder",
-        items: [],
+        items: [
+          { name: "comunal", type: "text" },
+          { name: "diana kova", type: "text" },
+          { name: "molly and her week of wonders", type: "text" },
+          { name: "artifaxing + wins", type: "text" },
+          { name: "eunuch for the kingdom", type: "text" },
+        ],
       },
       {
         name: "2024",
         type: "folder",
-        items: [],
+        items: [
+          { name: "masonic musik", type: "text" },
+          { name: "chalkhead's playground", type: "text" },
+          { name: "awaken", type: "text" },
+          { name: "seekr trending", type: "text" },
+        ],
       },
     ],
   },
@@ -41,14 +52,14 @@ export const tree: TreeItem[] = [
     type: "folder",
     items: [
       {
-        name: "2021",
+        name: "2021 - now",
         type: "folder",
-        items: [],
+        items: [{ name: "offsec", type: "text" }],
       },
       {
-        name: "2020",
+        name: "2020 - 2021",
         type: "folder",
-        items: [],
+        items: [{ name: "begeeked labs", type: "text" }],
       },
     ],
   },

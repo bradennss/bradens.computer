@@ -146,7 +146,7 @@ const FileWindowTextContent = memo<{ file: FilesystemTextFile }>(({ file }) => {
   }
 
   return (
-    <div className="p-2 font-mono">
+    <div className="p-2 font-mono whitespace-pre-line">
       <p>{textQuery.data}</p>
     </div>
   );

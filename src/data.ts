@@ -13,23 +13,85 @@ export type ExternalLinkTreeItem = BaseTreeItem & {
   url: string;
 };
 
-export type TreeItem = FolderTreeItem | ExternalLinkTreeItem;
+export type TextTreeItem = BaseTreeItem & {
+  type: "text";
+};
+
+export type TreeItem = FolderTreeItem | ExternalLinkTreeItem | TextTreeItem;
 
 export const tree: TreeItem[] = [
   {
     name: "1099",
     type: "folder",
-    items: [],
+    items: [
+      {
+        name: "2025",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2024",
+        type: "folder",
+        items: [],
+      },
+    ],
   },
   {
     name: "w-2",
     type: "folder",
-    items: [],
+    items: [
+      {
+        name: "2021",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2020",
+        type: "folder",
+        items: [],
+      },
+    ],
   },
   {
-    name: "projects",
+    name: "fun",
     type: "folder",
-    items: [],
+    items: [
+      {
+        name: "2025",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2024",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2023",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2022",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2021",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2019",
+        type: "folder",
+        items: [],
+      },
+      {
+        name: "2016",
+        type: "folder",
+        items: [],
+      },
+    ],
   },
   {
     name: "find me",

@@ -7,36 +7,47 @@ import {
 import { ExternalLinkIcon, MinusIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { memo } from "react";
-import { FolderTreeItem, ExternalLinkTreeItem, TreeItem } from "~/data";
+import {
+  FolderTreeItem,
+  ExternalLinkTreeItem,
+  TreeItem,
+  TextTreeItem,
+} from "~/data";
 
-const TreeItemComponent = memo<{ item: TreeItem }>(({ item }) => {
-  switch (item.type) {
-    case "folder":
-      return <TreeFolderComponent item={item} />;
-    case "external-link":
-      return <TreeExternalLinkComponent item={item} />;
+const TreeItemComponent = memo<{ item: TreeItem; parent?: TreeItem }>(
+  ({ item, parent }) => {
+    switch (item.type) {
+      case "folder":
+        return <TreeFolderComponent item={item} parent={parent} />;
+      case "external-link":
+        return <TreeExternalLinkComponent item={item} />;
+      case "text":
+        return <TreeTextComponent item={item} />;
+    }
   }
-});
+);
 TreeItemComponent.displayName = "TreeItemComponent";
 
-const TreeFolderComponent = memo<{ item: FolderTreeItem }>(({ item }) => {
-  return (
-    <AccordionItem className="group" value={item.name}>
-      <AccordionTrigger className="flex items-center">
-        <div className="flex items-center size-5">
-          <PlusIcon className="size-4 group-data-[state=open]:hidden" />
-          <MinusIcon className="size-4 hidden group-data-[state=open]:block" />
-        </div>
-        {item.name}
-      </AccordionTrigger>
-      <AccordionContent className="pl-5">
-        {item.items.map((item) => (
-          <TreeItemComponent key={item.name} item={item} />
-        ))}
-      </AccordionContent>
-    </AccordionItem>
-  );
-});
+const TreeFolderComponent = memo<{ item: FolderTreeItem; parent?: TreeItem }>(
+  ({ item, parent }) => {
+    const id = `${parent?.name}-${item.name}`;
+
+    return (
+      <AccordionItem className="group" value={id}>
+        <AccordionTrigger className="flex items-center gap-1 [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
+          <PlusIcon className="size-4" />
+          <MinusIcon className="size-4 hidden" />
+          {item.name}
+        </AccordionTrigger>
+        <AccordionContent className="pl-5">
+          {item.items.map((child) => (
+            <TreeItemComponent key={child.name} item={child} parent={item} />
+          ))}
+        </AccordionContent>
+      </AccordionItem>
+    );
+  }
+);
 TreeFolderComponent.displayName = "TreeFolderComponent";
 
 const TreeExternalLinkComponent = memo<{ item: ExternalLinkTreeItem }>(
@@ -45,17 +56,20 @@ const TreeExternalLinkComponent = memo<{ item: ExternalLinkTreeItem }>(
       <Link
         href={item.url}
         target={`external_link_${item.name}`}
-        className="flex items-center"
+        className="flex items-center gap-1"
       >
-        <div className="flex items-center size-5">
-          <ExternalLinkIcon className="size-4" />
-        </div>
+        <ExternalLinkIcon className="size-4" />
         {item.name}
       </Link>
     );
   }
 );
 TreeExternalLinkComponent.displayName = "TreeExternalLinkComponent";
+
+const TreeTextComponent = memo<{ item: TextTreeItem }>(({ item }) => {
+  return <p className="pl-5">{item.name}</p>;
+});
+TreeTextComponent.displayName = "TreeTextComponent";
 
 export const TreeRoot = memo<{ items: TreeItem[] }>(({ items }) => {
   return (

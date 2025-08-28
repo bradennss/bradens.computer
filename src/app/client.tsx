@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Accordion,
   AccordionContent,
@@ -6,7 +8,7 @@ import {
 } from "@radix-ui/react-accordion";
 import { ExternalLinkIcon, MinusIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { memo } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import {
   FilesystemDirectoryItem,
   FilesystemExternalLinkItem,
@@ -14,6 +16,8 @@ import {
   FilesystemItem,
 } from "~/filesystem/types";
 import { listItemsAtPath, lastPathSegment } from "~/filesystem/utils";
+import { useSnapshot } from "valtio";
+import { filesystemState } from "~/state/filesystem";
 
 const FiletreeItemComponent = memo<{
   filesystem: FilesystemItem[];
@@ -43,7 +47,7 @@ const FiletreeFolderComponent = memo<{
         <MinusIcon className="size-4 hidden" />
         <span>{lastPathSegment(item.path)}</span>
       </AccordionTrigger>
-      <AccordionContent className="pl-5 border-l border-foreground/25">
+      <AccordionContent className="pl-5 border-l border-tree-indent">
         {items.map((child) => (
           <FiletreeItemComponent
             key={child.path}
@@ -80,10 +84,25 @@ FiletreeFileComponent.displayName = "FiletreeFileComponent";
 
 export const FiletreeRoot = memo<{ filesystem: FilesystemItem[] }>(
   ({ filesystem }) => {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+      setIsClient(true);
+    }, []);
+
     const items = listItemsAtPath(filesystem, "/");
+    const openDirectories = useSnapshot(filesystemState).openDirectories;
+
+    const onValueChange = useCallback((value: string[]) => {
+      filesystemState.openDirectories = value;
+    }, []);
 
     return (
-      <Accordion type="multiple">
+      <Accordion
+        type="multiple"
+        value={isClient ? (openDirectories as string[]) : []}
+        onValueChange={onValueChange}
+      >
         {items.map((item) => (
           <FiletreeItemComponent
             key={item.path}

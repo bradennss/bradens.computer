@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { FiletreeRoot } from "~/components/filetree";
+import { FiletreeRoot } from "./client";
 import { filesystem } from "~/filesystem/data";
 
 const HomePage = memo(() => {

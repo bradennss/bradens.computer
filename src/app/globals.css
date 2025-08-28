@@ -3,6 +3,7 @@
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #000000;
+  --color-tree-indent: #00000040;
   --font-sans: var(--font-abc-diatype);
   --font-mono: "Courier New", Courier, monospace;
 }

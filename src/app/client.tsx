@@ -6,18 +6,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
-import { ExternalLinkIcon, MinusIcon, PlusIcon } from "lucide-react";
+import { ExternalLinkIcon, FileIcon, MinusIcon, PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback } from "react";
+import { useSnapshot } from "valtio";
 import {
   FilesystemDirectoryItem,
   FilesystemExternalLinkItem,
   FilesystemFileItem,
   FilesystemItem,
 } from "~/filesystem/types";
-import { listItemsAtPath, lastPathSegment } from "~/filesystem/utils";
-import { useSnapshot } from "valtio";
-import { filesystemState } from "~/state/filesystem";
+import { lastPathSegment, listItemsAtPath } from "~/filesystem/utils";
+import { useIsClient } from "~/hooks/client";
+import {
+  closeFile,
+  filesystemState,
+  openFile,
+  useIsFileOpen,
+} from "~/state/filesystem";
+import { cn } from "~/utils";
 
 const FiletreeItemComponent = memo<{
   filesystem: FilesystemItem[];
@@ -78,17 +85,35 @@ const FiletreeExternalLinkComponent = memo<{
 FiletreeExternalLinkComponent.displayName = "FiletreeExternalLinkComponent";
 
 const FiletreeFileComponent = memo<{ item: FilesystemFileItem }>(({ item }) => {
-  return <p className="pl-5">{lastPathSegment(item.path)}</p>;
+  const isClient = useIsClient();
+  const isOpen = useIsFileOpen(item.path);
+
+  const handleToggleOpen = useCallback(() => {
+    if (isOpen) {
+      closeFile();
+    } else {
+      openFile(item.path);
+    }
+  }, [isOpen, item.path]);
+
+  return (
+    <button
+      className={cn(
+        "flex items-center gap-1",
+        isClient && isOpen && "font-bold"
+      )}
+      onClick={handleToggleOpen}
+    >
+      <FileIcon className="size-4" />
+      {lastPathSegment(item.path)}
+    </button>
+  );
 });
 FiletreeFileComponent.displayName = "FiletreeFileComponent";
 
 export const FiletreeRoot = memo<{ filesystem: FilesystemItem[] }>(
   ({ filesystem }) => {
-    const [isClient, setIsClient] = useState(false);
-
-    useEffect(() => {
-      setIsClient(true);
-    }, []);
+    const isClient = useIsClient();
 
     const items = listItemsAtPath(filesystem, "/");
     const openDirectories = useSnapshot(filesystemState).openDirectories;

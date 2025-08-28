@@ -1,10 +1,12 @@
 "use client";
 
-import { memo, useCallback, useState } from "react";
-import { FileTreeExplorer } from "./file-tree-explorer";
-import { getFileOrDirectory } from "~/data/filesystem";
 import { useQuery } from "@tanstack/react-query";
 import assert from "assert";
+import { FileIcon, XIcon } from "lucide-react";
+import { memo, useCallback, useState } from "react";
+import { getFileOrDirectory } from "~/data/filesystem";
+import { cn } from "~/utils";
+import { FileTreeExplorer } from "./file-tree-explorer";
 import {
   Window,
   WindowContent,
@@ -12,8 +14,6 @@ import {
   WindowTitlebar,
   WindowTitlebarButton,
 } from "./window";
-import { FileIcon, XIcon } from "lucide-react";
-import { cn } from "~/utils";
 
 export const FileExplorer = memo(() => {
   const [expandedDirectories, setExpandedDirectories] = useState<string[]>([]);

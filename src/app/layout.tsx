@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 import { memo, PropsWithChildren } from "react";
-import { cn } from "~/utils";
 import QueryClientProvider from "~/providers/query-client";
+import { cn } from "~/utils";
+import "./globals.css";
 
 const abcDiatype = localFont({
   src: [

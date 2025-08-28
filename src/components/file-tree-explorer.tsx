@@ -9,11 +9,11 @@ import {
 import { FileIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { memo, useCallback, useMemo, useState } from "react";
 import {
+  FilesystemDirectory,
   FilesystemFile,
   FilesystemItem,
   listDirectory,
 } from "~/data/filesystem";
-import { FilesystemDirectory } from "~/filesystem/types";
 import { useIsClient } from "~/hooks/client";
 import { cn, lastPathSegment } from "~/utils";
 

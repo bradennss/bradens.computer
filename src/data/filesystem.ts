@@ -39,6 +39,9 @@ export function getFileOrDirectory(path: string): FilesystemItem | null {
 }
 
 const filesystem: FilesystemItem[] = [
+  { type: "directory", path: "/test" },
+  { type: "file", path: "/test/test.txt", src: "/test.txt" },
+  { type: "file", path: "/test/test.md", src: "/test.md" },
   { type: "directory", path: "/1099" },
   { type: "directory", path: "/1099/2025" },
   {

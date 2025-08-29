@@ -14,6 +14,7 @@ import {
   WindowTitlebar,
   WindowTitlebarButton,
 } from "./window";
+import { ContentRenderer } from "./content-renderer";
 
 export const FileExplorer = memo(() => {
   const [windowIsFullscreen, setWindowIsFullscreen] = useState(false);
@@ -61,7 +62,7 @@ export const FileExplorer = memo(() => {
         </div>
       )}
       {openFile && (
-        <Window className="flex-col-reverse md:flex-col flex-grow border-0 border-b md:border-b-0 md:border-l">
+        <Window className="flex-col-reverse md:flex-col flex-1 border-0 border-b md:border-b-0 md:border-l">
           <WindowTitlebar className="border-0 border-t md:border-t-0 md:border-b">
             <WindowTitlebarButton>
               <FileIcon className="size-4" />
@@ -81,8 +82,13 @@ export const FileExplorer = memo(() => {
               <XIcon className="size-4" />
             </WindowTitlebarButton>
           </WindowTitlebar>
-          <WindowContent className="p-2 font-mono whitespace-pre-line">
-            {fileContentsQuery.data}
+          <WindowContent>
+            {fileContentsQuery.data && (
+              <ContentRenderer
+                filename={openFile.path}
+                content={fileContentsQuery.data}
+              />
+            )}
           </WindowContent>
         </Window>
       )}

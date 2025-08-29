@@ -59,10 +59,7 @@ export const WindowContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      "flex-[1_1_1px] overflow-y-auto overflow-x-hidden",
-      className
-    )}
+    className={cn("flex overflow-hidden flex-[1_1_1px]", className)}
     {...props}
   />
 ));

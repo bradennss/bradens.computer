@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme inline {
   --color-background: #ffffff;
@@ -10,6 +11,12 @@
   --color-window-title-background: #e6e6e6;
   --color-window-title-foreground: #333;
   --color-window-titlebar-button-hover: #ccc;
+  --color-typography-foreground: #000000;
+  --color-typography-separator: #ccc;
+  --color-typography-code-background: #e6e6e6;
+  --color-typography-code-foreground: #000000;
+  --color-typography-code-border: #666;
+
   --font-sans: var(--font-abc-diatype), sans-serif;
   --font-mono: var(--font-abc-diatype-mono), monospace;
 }
@@ -23,4 +30,117 @@ input {
 a,
 button {
   @apply cursor-pointer;
+}
+
+.typography {
+  @apply text-typography-foreground font-sans text-base;
+}
+
+.typography p {
+  @apply my-4;
+}
+
+.typography p:not(:first-child) {
+  @apply mt-0;
+}
+
+.typography h1,
+.typography h2,
+.typography h3,
+.typography h4,
+.typography h5,
+.typography h6 {
+  @apply font-bold mt-6 mb-4;
+}
+
+.typography h1:first-child,
+.typography h2:first-child,
+.typography h3:first-child,
+.typography h4:first-child,
+.typography h5:first-child,
+.typography h6:first-child {
+  @apply mt-0;
+}
+
+.typography h1 {
+  @apply text-4xl;
+}
+
+.typography h2 {
+  @apply text-3xl;
+}
+
+.typography h3 {
+  @apply text-xl;
+}
+
+.typography h4 {
+  @apply text-lg;
+}
+
+.typography h5 {
+  @apply text-base;
+}
+
+.typography h6 {
+  @apply text-sm;
+}
+
+.typography a {
+  @apply underline;
+}
+
+.typography ul,
+.typography ol {
+  @apply my-4;
+}
+
+.typography ul:first-child,
+.typography ol:first-child {
+  @apply mt-0;
+}
+
+.typography li ul,
+.typography li ol {
+  @apply my-0;
+}
+
+.typography ul {
+  @apply list-disc;
+}
+
+.typography ol {
+  @apply list-decimal;
+}
+
+.typography ul li {
+  @apply ml-4;
+}
+
+.typography ol li {
+  @apply ml-10;
+}
+
+.typography hr {
+  @apply my-6 border-typography-separator;
+}
+
+.typography blockquote {
+  @apply border-l border-typography-separator pl-4 italic mx-4;
+}
+
+.typography blockquote:first-child {
+  @apply mt-0;
+}
+
+.typography pre {
+  @apply bg-typography-code-background text-typography-code-foreground px-4 py-2 overflow-auto border border-typography-code-border my-4;
+}
+
+.typography pre:first-child {
+  @apply mt-0;
+}
+
+.typography code {
+  @apply bg-typography-code-background text-typography-code-foreground px-1 py-0.5;
 }

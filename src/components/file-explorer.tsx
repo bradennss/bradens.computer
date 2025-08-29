@@ -1,11 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import assert from "assert";
 import { FileIcon, FullscreenIcon, MinimizeIcon, XIcon } from "lucide-react";
 import { memo, useCallback, useState } from "react";
 import { getFileOrDirectory } from "~/data/filesystem";
 import { cn } from "~/utils";
+import { FileRenderer } from "./file-renderer";
 import { FileTreeExplorer } from "./file-tree-explorer";
 import {
   Window,
@@ -14,7 +13,6 @@ import {
   WindowTitlebar,
   WindowTitlebarButton,
 } from "./window";
-import { ContentRenderer } from "./content-renderer";
 
 export const FileExplorer = memo(() => {
   const [windowIsFullscreen, setWindowIsFullscreen] = useState(false);
@@ -25,16 +23,6 @@ export const FileExplorer = memo(() => {
   if (openFile && openFile.type !== "file") {
     throw new Error(`"${openFilePath}" is not a file`);
   }
-
-  const fileContentsQuery = useQuery({
-    enabled: !!openFile,
-    queryKey: ["file-contents", openFile?.src],
-    queryFn: async () => {
-      assert(openFile, "openFile is not a file");
-      const res = await fetch(openFile.src);
-      return res.text();
-    },
-  });
 
   const handleCloseFile = useCallback(() => setOpenFilePath(null), []);
   const handleToggleWindowFullscreen = useCallback(
@@ -49,7 +37,7 @@ export const FileExplorer = memo(() => {
       {hideFileExplorer && (
         <div
           className={cn(
-            "p-2 overflow-y-auto overflow-x-hidden flex-1",
+            "p-2 overflow-y-auto overflow-x-hidden",
             openFile && "max-h-42 md:max-h-full md:min-w-sm"
           )}
         >
@@ -83,12 +71,7 @@ export const FileExplorer = memo(() => {
             </WindowTitlebarButton>
           </WindowTitlebar>
           <WindowContent>
-            {fileContentsQuery.data && (
-              <ContentRenderer
-                filename={openFile.path}
-                content={fileContentsQuery.data}
-              />
-            )}
+            <FileRenderer file={openFile} />
           </WindowContent>
         </Window>
       )}

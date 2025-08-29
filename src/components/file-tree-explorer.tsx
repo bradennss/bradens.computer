@@ -57,13 +57,13 @@ const FileTreeExplorerFolder = memo<{
 
   return (
     <AccordionItem className="group" value={item.path}>
-      <AccordionTrigger className="flex items-center gap-1 select-none whitespace-nowrap [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
+      <AccordionTrigger className="flex items-center gap-1 px-1 select-none w-full whitespace-nowrap hover:bg-tree-hover-background hover:text-tree-hover-foreground [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
         <PlusIcon className="size-4" />
         <MinusIcon className="size-4 hidden" />
         <FolderIcon className="size-4" />
         <span>{lastPathSegment(item.path)}</span>
       </AccordionTrigger>
-      <AccordionContent className="pl-5 border-l border-tree-indent">
+      <AccordionContent className="pl-3 ml-3 border-l border-tree-indent">
         {items.map((child) => (
           <FileTreeExplorerItem
             key={child.path}
@@ -88,12 +88,14 @@ const FileTreeExplorerFile = memo<{
   return (
     <button
       className={cn(
-        "flex items-center gap-1 select-none whitespace-nowrap",
-        isOpen && "font-bold"
+        "flex items-center gap-1 px-1 select-none whitespace-nowrap w-full",
+        isOpen
+          ? "bg-tree-selected-background text-tree-selected-foreground"
+          : "hover:bg-tree-hover-background hover:text-tree-hover-foreground"
       )}
       onClick={onClick}
     >
-      <PlusIcon className="size-4 opacity-0" />
+      <span className="size-4"></span>
       <FileIcon className="size-4" />
       {lastPathSegment(item.path)}
     </button>

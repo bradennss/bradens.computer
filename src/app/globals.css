@@ -5,6 +5,10 @@
   --color-background: #ffffff;
   --color-foreground: #000000;
   --color-tree-indent: #ccc;
+  --color-tree-hover-background: #e6e6e6;
+  --color-tree-hover-foreground: #000000;
+  --color-tree-selected-background: #cccfff;
+  --color-tree-selected-foreground: #000000;
   --color-window-background: #ffffff;
   --color-window-foreground: #000000;
   --color-window-border: #666;

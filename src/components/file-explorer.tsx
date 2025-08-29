@@ -40,8 +40,8 @@ export const FileExplorer = memo(() => {
       {showFileExplorer && (
         <div
           className={cn(
-            "p-2 overflow-y-auto overflow-x-hidden",
-            openFile && "max-h-42 md:max-h-full md:min-w-sm"
+            "py-2 overflow-y-auto overflow-x-hidden",
+            openFile ? "max-h-42 md:max-h-full md:min-w-sm" : "flex-1"
           )}
         >
           <FileTreeExplorer
@@ -55,7 +55,7 @@ export const FileExplorer = memo(() => {
       {openFile && (
         <Window
           className={cn(
-            "flex-col-reverse md:flex-col flex-1 border-0 border-b md:border-b-0 md:border-l",
+            "flex-col-reverse md:flex-col flex-1 shrink-0 border-0 border-b md:border-b-0 md:border-l",
             !showFileExplorer && "border-b-0 md:border-l-0"
           )}
         >

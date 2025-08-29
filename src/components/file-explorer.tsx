@@ -1,6 +1,6 @@
 "use client";
 
-import { FileIcon, FullscreenIcon, MinimizeIcon, XIcon } from "lucide-react";
+import { FullscreenIcon, MinimizeIcon, XIcon } from "lucide-react";
 import { memo, useCallback, useState } from "react";
 import { getFileOrDirectory } from "~/data/filesystem";
 import { cn } from "~/utils";
@@ -13,6 +13,7 @@ import {
   WindowTitlebar,
   WindowTitlebarButton,
 } from "./window";
+import { getFileIcon } from "./file-icon";
 
 export const FileExplorer = memo(() => {
   const [windowIsFullscreen, setWindowIsFullscreen] = useState(false);
@@ -31,6 +32,8 @@ export const FileExplorer = memo(() => {
   );
 
   const hideFileExplorer = !openFile || !windowIsFullscreen;
+
+  const FileIcon = openFile ? getFileIcon(openFile.path) : null;
 
   return (
     <div className="w-full h-full flex flex-col-reverse md:flex-row">
@@ -52,9 +55,11 @@ export const FileExplorer = memo(() => {
       {openFile && (
         <Window className="flex-col-reverse md:flex-col flex-1 border-0 border-b md:border-b-0 md:border-l">
           <WindowTitlebar className="border-0 border-t md:border-t-0 md:border-b">
-            <WindowTitlebarButton>
-              <FileIcon className="size-4" />
-            </WindowTitlebarButton>
+            {FileIcon && (
+              <WindowTitlebarButton>
+                <FileIcon className="size-4" />
+              </WindowTitlebarButton>
+            )}
             <WindowTitle>{openFile.path}</WindowTitle>
             <WindowTitlebarButton
               className="ml-auto"

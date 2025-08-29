@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@radix-ui/react-accordion";
-import { FileIcon, MinusIcon, PlusIcon } from "lucide-react";
+import { FolderIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { memo, useCallback, useMemo, useState } from "react";
 import {
   FilesystemDirectory,
@@ -15,6 +15,7 @@ import {
   listDirectory,
 } from "~/data/filesystem";
 import { cn, lastPathSegment } from "~/utils";
+import { getFileIcon } from "./file-icon";
 
 const FileTreeExplorerItem = memo<{
   item: FilesystemItem;
@@ -59,6 +60,7 @@ const FileTreeExplorerFolder = memo<{
       <AccordionTrigger className="flex items-center gap-1 select-none whitespace-nowrap [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
         <PlusIcon className="size-4" />
         <MinusIcon className="size-4 hidden" />
+        <FolderIcon className="size-4" />
         <span>{lastPathSegment(item.path)}</span>
       </AccordionTrigger>
       <AccordionContent className="pl-5 border-l border-tree-indent">
@@ -81,6 +83,8 @@ const FileTreeExplorerFile = memo<{
   isOpen?: boolean;
   onClick?: () => void;
 }>(({ item, isOpen, onClick }) => {
+  const FileIcon = getFileIcon(item.path);
+
   return (
     <button
       className={cn(
@@ -89,6 +93,7 @@ const FileTreeExplorerFile = memo<{
       )}
       onClick={onClick}
     >
+      <PlusIcon className="size-4 opacity-0" />
       <FileIcon className="size-4" />
       {lastPathSegment(item.path)}
     </button>

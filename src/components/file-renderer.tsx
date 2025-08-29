@@ -6,7 +6,7 @@ import { FilesystemFile } from "~/data/filesystem";
 import { useFileContentsQuery } from "~/hooks/file";
 
 const TextFileRenderer = memo<{ file: FilesystemFile }>(({ file }) => {
-  const fileContentsQuery = useFileContentsQuery(file);
+  const fileContentsQuery = useFileContentsQuery(file.src);
 
   return (
     <div className="p-4 w-full font-mono whitespace-pre-line overflow-y-auto overflow-x-hidden">
@@ -17,7 +17,7 @@ const TextFileRenderer = memo<{ file: FilesystemFile }>(({ file }) => {
 TextFileRenderer.displayName = "TextFileRenderer";
 
 const MarkdownFileRenderer = memo<{ file: FilesystemFile }>(({ file }) => {
-  const fileContentsQuery = useFileContentsQuery(file);
+  const fileContentsQuery = useFileContentsQuery(file.src);
 
   return (
     <div className="w-full p-4 overflow-y-auto overflow-x-hidden typography">

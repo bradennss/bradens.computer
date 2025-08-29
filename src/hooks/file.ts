@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { FilesystemFile } from "~/data/filesystem";
 
-export function useFileContentsQuery(file: FilesystemFile) {
+export function useFileContentsQuery(src: string) {
   return useQuery({
-    queryKey: ["file-contents", file.path],
-    queryFn: () => fetch(file.src).then((res) => res.text()),
+    queryKey: ["file-contents", src],
+    queryFn: () => fetch(src).then((res) => res.text()),
   });
 }

@@ -1,0 +1,152 @@
+:root {
+  --color-prettylights-syntax-brackethighlighter-angle: #59636e;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-comment: #59636e;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+  --color-prettylights-syntax-entity: #6639ba;
+  --color-prettylights-syntax-entity-tag: #0550ae;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-markup-ignored-text: #d1d9e0;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #818b98;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-markup-bold: #1f2328;
+  --color-prettylights-syntax-markup-italic: #1f2328;
+  --color-prettylights-syntax-storage-modifier-import: #1f2328;
+}
+
+.syntax .pl-c {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.syntax .pl-c1,
+.syntax .pl-s .pl-v {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+.syntax .pl-e,
+.syntax .pl-en {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+.syntax .pl-smi,
+.syntax .pl-s .pl-s1 {
+  color: var(--color-prettylights-syntax-storage-modifier-import);
+}
+
+.syntax .pl-ent {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+.syntax .pl-k {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.syntax .pl-s,
+.syntax .pl-pds,
+.syntax .pl-s .pl-pse .pl-s1,
+.syntax .pl-sr,
+.syntax .pl-sr .pl-cce,
+.syntax .pl-sr .pl-sre,
+.syntax .pl-sr .pl-sra {
+  color: var(--color-prettylights-syntax-string);
+}
+
+.syntax .pl-v,
+.syntax .pl-smw {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+.syntax .pl-bu {
+  color: var(--color-prettylights-syntax-brackethighlighter-unmatched);
+}
+
+.syntax .pl-ii {
+  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
+}
+
+.syntax .pl-c2 {
+  color: var(--color-prettylights-syntax-carriage-return-text);
+  background-color: var(--color-prettylights-syntax-carriage-return-bg);
+}
+
+.syntax .pl-sr .pl-cce {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-string-regexp);
+}
+
+.syntax .pl-ml {
+  color: var(--color-prettylights-syntax-markup-list);
+}
+
+.syntax .pl-mh,
+.syntax .pl-mh .pl-en,
+.syntax .pl-ms {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-heading);
+}
+
+.syntax .pl-mi {
+  font-style: italic;
+  color: var(--color-prettylights-syntax-markup-italic);
+}
+
+.syntax .pl-mb {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-bold);
+}
+
+.syntax .pl-md {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+.syntax .pl-mi1 {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+.syntax .pl-mc {
+  color: var(--color-prettylights-syntax-markup-changed-text);
+  background-color: var(--color-prettylights-syntax-markup-changed-bg);
+}
+
+.syntax .pl-mi2 {
+  color: var(--color-prettylights-syntax-markup-ignored-text);
+  background-color: var(--color-prettylights-syntax-markup-ignored-bg);
+}
+
+.syntax .pl-mdr {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+
+.syntax .pl-ba {
+  color: var(--color-prettylights-syntax-brackethighlighter-angle);
+}
+
+.syntax .pl-sg {
+  color: var(--color-prettylights-syntax-sublimelinter-gutter-mark);
+}
+
+.syntax .pl-corl {
+  text-decoration: underline;
+  color: var(--color-prettylights-syntax-constant-other-reference-link);
+}

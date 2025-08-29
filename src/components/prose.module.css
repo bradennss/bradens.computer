@@ -102,7 +102,7 @@
 }
 
 .prose pre {
-  @apply font-mono bg-typography-code-background text-typography-code-foreground px-4 py-2 overflow-auto border border-typography-code-border my-4;
+  @apply font-mono text-sm bg-typography-code-background text-typography-code-foreground px-4 py-2 overflow-auto border border-typography-code-border my-4;
 }
 
 .prose pre:first-child {
@@ -110,5 +110,5 @@
 }
 
 .prose code {
-  @apply font-mono bg-typography-code-background text-typography-code-foreground px-1 py-0.5;
+  @apply font-mono text-sm bg-typography-code-background text-typography-code-foreground;
 }

@@ -256,10 +256,16 @@ Regular Markdown syntax is not processed within code blocks. E.g.,
 asterisks are just literal asterisks within a code block. This means
 it's also easy to use Markdown to write about Markdown's own syntax.
 
-```
-tell application "Foo"
-    beep
-end tell
+```Markdown
+### Lists
+
++ Create a list by starting a line with `+`, `-`, or `*`
++ Sub-lists are made by indenting 2 spaces:
+  - Marker character change forces new list start:
+    * Ac tristique libero volutpat at
+    + Facilisis in pretium nisl aliquet
+    - Nulla volutpat aliquam velit
++ Very easy!
 ```
 
 ## Span Elements

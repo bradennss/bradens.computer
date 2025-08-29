@@ -1,13 +1,23 @@
 import Link from "next/link";
-import { memo } from "react";
+import { lazy, memo } from "react";
 import ReactMarkdown, {
-  Options as ReactMarkdownOptions,
   Components as ReactMarkdownComponents,
+  Options as ReactMarkdownOptions,
 } from "react-markdown";
 import rehypeSlug from "rehype-slug";
 
+const SyntaxHighlighting = lazy(() => import("./syntax-highlighting"));
+
 const COMPONENTS: ReactMarkdownComponents = {
   a: ({ href, children }) => <Link href={href ?? "#"}>{children}</Link>,
+  code: ({ children, className }) => {
+    const language = className?.split("-")[1];
+    return (
+      <SyntaxHighlighting flag={language ?? "text"}>
+        {children}
+      </SyntaxHighlighting>
+    );
+  },
 };
 
 export const Markdown = memo<ReactMarkdownOptions>(({ children, ...props }) => {

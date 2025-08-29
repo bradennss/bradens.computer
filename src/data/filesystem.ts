@@ -16,6 +16,10 @@ export type FilesystemFile = BaseFilesystemItem & {
 
 export type FilesystemItem = FilesystemDirectory | FilesystemFile;
 
+export function listFilesystem(): FilesystemItem[] {
+  return structuredClone(filesystem);
+}
+
 export function listDirectory(path: string): FilesystemItem[] {
   path = normalizePath(path);
 
@@ -24,18 +28,26 @@ export function listDirectory(path: string): FilesystemItem[] {
   }
   const parentParts = splitPath(path);
 
-  return filesystem.filter((item) => {
+  const results = filesystem.filter((item) => {
     const parts = splitPath(item.path);
     return (
       parts.length === parentParts.length + 1 &&
       parentParts.every((part, index) => parts[index] === part)
     );
   });
+
+  return structuredClone(results);
 }
 
 export function getFileOrDirectory(path: string): FilesystemItem | null {
   path = normalizePath(path);
-  return filesystem.find((item) => item.path === path) ?? null;
+
+  const result = filesystem.find((item) => item.path === path);
+  if (!result) {
+    return null;
+  }
+
+  return structuredClone(result);
 }
 
 const filesystem: FilesystemItem[] = [

@@ -1,0 +1,114 @@
+@reference "../app/globals.css";
+
+.prose {
+  @apply text-typography-foreground font-sans text-base;
+}
+
+.prose p {
+  @apply my-4;
+}
+
+.prose p:not(:first-child) {
+  @apply mt-0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply font-bold mt-6 mb-4;
+}
+
+.prose h1:first-child,
+.prose h2:first-child,
+.prose h3:first-child,
+.prose h4:first-child,
+.prose h5:first-child,
+.prose h6:first-child {
+  @apply mt-0;
+}
+
+.prose h1 {
+  @apply text-4xl;
+}
+
+.prose h2 {
+  @apply text-3xl;
+}
+
+.prose h3 {
+  @apply text-xl;
+}
+
+.prose h4 {
+  @apply text-lg;
+}
+
+.prose h5 {
+  @apply text-base;
+}
+
+.prose h6 {
+  @apply text-sm;
+}
+
+.prose a {
+  @apply underline;
+}
+
+.prose ul,
+.prose ol {
+  @apply my-4;
+}
+
+.prose ul:first-child,
+.prose ol:first-child {
+  @apply mt-0;
+}
+
+.prose li ul,
+.prose li ol {
+  @apply my-0;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose ul li {
+  @apply ml-4;
+}
+
+.prose ol li {
+  @apply ml-10;
+}
+
+.prose hr {
+  @apply my-6 border-typography-separator;
+}
+
+.prose blockquote {
+  @apply border-l border-typography-separator pl-4 italic mx-4;
+}
+
+.prose blockquote:first-child {
+  @apply mt-0;
+}
+
+.prose pre {
+  @apply font-mono bg-typography-code-background text-typography-code-foreground px-4 py-2 overflow-auto border border-typography-code-border my-4;
+}
+
+.prose pre:first-child {
+  @apply mt-0;
+}
+
+.prose code {
+  @apply font-mono bg-typography-code-background text-typography-code-foreground px-1 py-0.5;
+}

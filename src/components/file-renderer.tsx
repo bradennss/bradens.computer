@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { memo } from "react";
-import Markdown from "react-markdown";
-import rehypeSlug from "rehype-slug";
 import { FilesystemFile } from "~/data/filesystem";
 import { useFileContentsQuery } from "~/hooks/file";
+import { Markdown } from "./markdown";
+import { Prose } from "./prose";
 
 const TextFileRenderer = memo<{ file: FilesystemFile }>(({ file }) => {
   const fileContentsQuery = useFileContentsQuery(file.src);
@@ -20,9 +20,9 @@ const MarkdownFileRenderer = memo<{ file: FilesystemFile }>(({ file }) => {
   const fileContentsQuery = useFileContentsQuery(file.src);
 
   return (
-    <div className="w-full p-4 overflow-y-auto overflow-x-hidden typography">
-      <Markdown rehypePlugins={[rehypeSlug]}>{fileContentsQuery.data}</Markdown>
-    </div>
+    <Prose className="w-full p-4 overflow-y-auto overflow-x-hidden">
+      <Markdown>{fileContentsQuery.data}</Markdown>
+    </Prose>
   );
 });
 MarkdownFileRenderer.displayName = "MarkdownFileRenderer";

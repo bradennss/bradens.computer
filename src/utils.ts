@@ -16,6 +16,22 @@ export function splitPath(path: string): string[] {
     .filter(Boolean);
 }
 
+export function joinPath(...segments: string[]): string {
+  return normalizePath(segments.join("/"));
+}
+
 export function lastPathSegment(path: string): string {
   return `/${path.split("/").pop()}`;
+}
+
+export function pathHeirarchy(path: string): string[] {
+  const result: string[] = [];
+
+  let current = "";
+  for (const segment of splitPath(path)) {
+    current += "/" + segment;
+    result.push(current);
+  }
+
+  return result;
 }

@@ -31,13 +31,13 @@ export const FileExplorer = memo(() => {
     []
   );
 
-  const hideFileExplorer = !openFile || !windowIsFullscreen;
+  const showFileExplorer = !openFile || !windowIsFullscreen;
 
   const FileIcon = openFile ? getFileIcon(openFile.path) : null;
 
   return (
     <div className="w-full h-full flex flex-col-reverse md:flex-row">
-      {hideFileExplorer && (
+      {showFileExplorer && (
         <div
           className={cn(
             "p-2 overflow-y-auto overflow-x-hidden",
@@ -53,7 +53,12 @@ export const FileExplorer = memo(() => {
         </div>
       )}
       {openFile && (
-        <Window className="flex-col-reverse md:flex-col flex-1 border-0 border-b md:border-b-0 md:border-l">
+        <Window
+          className={cn(
+            "flex-col-reverse md:flex-col flex-1 border-0 border-b md:border-b-0 md:border-l",
+            !showFileExplorer && "border-b-0 md:border-l-0"
+          )}
+        >
           <WindowTitlebar className="border-0 border-t md:border-t-0 md:border-b">
             {FileIcon && (
               <WindowTitlebarButton>

@@ -34,7 +34,14 @@ export const WindowTitlebarButton = forwardRef<
   HTMLButtonElement,
   HTMLAttributes<HTMLButtonElement>
 >(({ className, ...props }, ref) => (
-  <button ref={ref} className={cn("px-1 h-full", className)} {...props} />
+  <button
+    ref={ref}
+    className={cn(
+      "px-1 h-full hover:bg-window-titlebar-button-hover focus-visible:bg-window-titlebar-button-hover",
+      className
+    )}
+    {...props}
+  />
 ));
 WindowTitlebarButton.displayName = "WindowTitlebarButton";
 
@@ -42,7 +49,7 @@ export const WindowTitle = forwardRef<
   HTMLHeadingElement,
   HTMLProps<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <h2 ref={ref} className={cn("truncate", className)} {...props} />
+  <h2 ref={ref} className={cn("truncate px-1", className)} {...props} />
 ));
 WindowTitle.displayName = "WindowTitle";
 

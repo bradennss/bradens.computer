@@ -56,7 +56,7 @@ const FileTreeExplorerFolder = memo<{
 
   return (
     <AccordionItem className="group" value={item.path}>
-      <AccordionTrigger className="flex items-center gap-1 select-none [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
+      <AccordionTrigger className="flex items-center gap-1 select-none whitespace-nowrap [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
         <PlusIcon className="size-4" />
         <MinusIcon className="size-4 hidden" />
         <span>{lastPathSegment(item.path)}</span>
@@ -84,7 +84,7 @@ const FileTreeExplorerFile = memo<{
   return (
     <button
       className={cn(
-        "flex items-center gap-1 select-none",
+        "flex items-center gap-1 select-none whitespace-nowrap",
         isOpen && "font-bold"
       )}
       onClick={onClick}

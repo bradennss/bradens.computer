@@ -57,7 +57,7 @@ const FileTreeExplorerFolder = memo<{
 
   return (
     <AccordionItem className="group" value={item.path}>
-      <AccordionTrigger className="flex items-center gap-1 px-1 select-none w-full whitespace-nowrap hover:bg-tree-hover-background hover:text-tree-hover-foreground [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
+      <AccordionTrigger className="flex items-center gap-1 px-1 select-none w-full whitespace-nowrap hover:bg-tree-hover-background hover:text-tree-hover-foreground active:bg-tree-hover-background active:text-tree-hover-foreground [&[data-state=open]>svg:nth-child(1)]:hidden [&[data-state=open]>svg:nth-child(2)]:block">
         <PlusIcon className="size-4" />
         <MinusIcon className="size-4 hidden" />
         <FolderIcon className="size-4" />
@@ -91,7 +91,7 @@ const FileTreeExplorerFile = memo<{
         "flex items-center gap-1 px-1 select-none whitespace-nowrap w-full",
         isOpen
           ? "bg-tree-selected-background text-tree-selected-foreground"
-          : "hover:bg-tree-hover-background hover:text-tree-hover-foreground"
+          : "hover:bg-tree-hover-background hover:text-tree-hover-foreground active:bg-tree-hover-background active:text-tree-hover-foreground"
       )}
       onClick={onClick}
     >
